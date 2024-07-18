@@ -1,0 +1,92 @@
+import java.util.Scanner;
+
+public class CurrencyConverter {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Currency conversion rates (approximate values as of writing)
+        double usdToInr = 74.5;
+        double eurToInr = 87.2;
+        double gbpToInr = 103.6;
+        double jpyToInr = 0.68;
+
+        System.out.println("Welcome to Currency Converter!");
+        System.out.println("Available currencies:");
+        System.out.println("1. Indian Rupee (INR)");
+        System.out.println("2. US Dollar (USD)");
+        System.out.println("3. Euro (EUR)");
+        System.out.println("4. British Pound (GBP)");
+        System.out.println("5. Japanese Yen (JPY)");
+
+        System.out.print("Enter the base currency (e.g., INR): ");
+        String baseCurrency = scanner.nextLine().toUpperCase();
+
+        System.out.print("Enter the target currency (e.g., USD): ");
+        String targetCurrency = scanner.nextLine().toUpperCase();
+
+        System.out.print("Enter the amount to convert: ");
+        double amount = scanner.nextDouble();
+
+        double convertedAmount = convertCurrency(baseCurrency, targetCurrency, amount,
+                usdToInr, eurToInr, gbpToInr, jpyToInr);
+
+        if (convertedAmount != -1) {
+            System.out.printf("%.2f %s = %.2f %s%n", amount, baseCurrency, convertedAmount, targetCurrency);
+        } else {
+            System.out.println("Currency conversion failed. Please check your input.");
+        }
+
+        scanner.close();
+    }
+
+    // Method to perform currency conversion
+    private static double convertCurrency(String baseCurrency, String targetCurrency, double amount,
+                                          double usdToInr, double eurToInr, double gbpToInr, double jpyToInr) {
+        switch (baseCurrency) {
+            case "INR":
+                switch (targetCurrency) {
+                    case "USD":
+                        return amount / usdToInr;
+                    case "EUR":
+                        return amount / eurToInr;
+                    case "GBP":
+                        return amount / gbpToInr;
+                    case "JPY":
+                        return amount / jpyToInr;
+                    default:
+                        return -1;
+                }
+            case "USD":
+                switch (targetCurrency) {
+                    case "INR":
+                        return amount * usdToInr;
+                    default:
+                        return -1;
+                }
+            case "EUR":
+                switch (targetCurrency) {
+                    case "INR":
+                        return amount * eurToInr;
+                    default:
+                        return -1;
+                }
+            case "GBP":
+                switch (targetCurrency) {
+                    case "INR":
+                        return amount * gbpToInr;
+                    default:
+                        return -1;
+                }
+            case "JPY":
+                switch (targetCurrency) {
+                    case "INR":
+                        return amount * jpyToInr;
+                    default:
+                        return -1;
+                }
+            default:
+                return -1;
+        }
+    }
+}
